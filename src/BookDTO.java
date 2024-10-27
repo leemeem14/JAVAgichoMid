@@ -22,6 +22,6 @@ public class BookDTO {
     public void setAuthor(String author) { this.author = author; }
     public String getPublisher() { return publisher; }
     public void setPublisher(String publisher) { this.publisher = publisher; }
-    public double getPrice() { return price; }
+    public int getPrice() { return price; }
     public void setPrice(int price) { this.price = price; }
 }
