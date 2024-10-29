@@ -9,22 +9,22 @@ public class Main {
             view.printMenu();
             try {
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
                         view.printBookList(controller.getBookList());
                         break;
                     case 2:
-                        System.out.print("조회할 책 번호를 입력하세요(조회를 먼저 하셨을때, 2번째부터 붙어있는1은 무시하시면 됩니다.): ");
+                        System.out.print("조회할 책 번호를 입력하세요: ");
                         int searchNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine();
                         view.printBook(controller.getBook(searchNumber));
                         break;
                     case 3:
                         System.out.print("추가할 책의 번호를 입력하세요: ");
                         int newNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine();
                         System.out.print("추가할 책의 제목을 입력하세요: ");
                         String newName = scanner.nextLine();
                         System.out.print("추가할 책의 저자를 입력하세요: ");
@@ -33,14 +33,16 @@ public class Main {
                         String newPublisher = scanner.nextLine();
                         System.out.print("추가할 책의 가격을 입력하세요: ");
                         int newPrice = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
-                        controller.addBook(new BookDTO(newNumber, newName, newAuthor, newPublisher, newPrice));
+                        System.out.print("추가할 책의 쪽수를 입력하세요: ");
+                        int newPage = scanner.nextInt();
+                        scanner.nextLine();
+                        controller.addBook(new BookDTO(newNumber, newName, newAuthor, newPublisher, newPrice, newPage));
                         System.out.println("책이 추가 되었습니다.");
                         break;
                     case 4:
                         System.out.print("정보 수정할 책의 번호를 입력하세요: ");
                         int updateNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine();
                         BookDTO bookToUpdate = controller.getBook(updateNumber);
                         if (bookToUpdate != null) {
                             System.out.print("책의 이름을 입력하세요(엔터로 정보 유지).: ");
@@ -57,8 +59,13 @@ public class Main {
 
                             System.out.print("책의 가격을 입력하세요(-1 입력으로 정보 유지).: ");
                             int updatedPrice = scanner.nextInt();
-                            scanner.nextLine(); // Consume newline
+                            scanner.nextLine();
                             if (updatedPrice != -1) bookToUpdate.setPrice(updatedPrice);
+
+                            System.out.print("책의 쪽수를 입력하세요(-1 입력으로 정보 유지).");
+                            int updatedPage = scanner.nextInt();
+                            scanner.nextLine();
+                            if (updatedPage != -1) bookToUpdate.setPages(updatedPage);
 
                             if (controller.updateBook(updateNumber, bookToUpdate)) {
                                 System.out.println("책의 수정이 완료되었습니다.");
@@ -72,7 +79,7 @@ public class Main {
                     case 5:
                         System.out.print("삭제할 책의 번호를 입력하십시오.: ");
                         int deleteNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine();
                         if (controller.deleteBook(deleteNumber)) {
                             System.out.println("책 삭제가 완료 되었습니다.");
                         } else {
@@ -88,7 +95,7 @@ public class Main {
                 }
             } catch (Exception e) {
                 System.out.println("에러가 발생했습니다.: " + e.getMessage());
-                scanner.nextLine(); // Consume invalid input
+                scanner.nextLine();
             }
         }
     }
